@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://c2nmpkr75lpt2"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_aeq1y"]
+
+[resource]
+resource_local_to_scene = true
+albedo_color = Color(0.446777, 0.446777, 0.446777, 1)
+albedo_texture = SubResource("PlaceholderTexture2D_aeq1y")
+emission_enabled = true
+emission = Color(0.71958, 0.999777, 1, 1)
+emission_energy_multiplier = 0.96

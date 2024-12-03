@@ -1,0 +1,139 @@
+[gd_scene load_steps=10 format=4 uid="uid://cp2yv6yk18kui"]
+
+[ext_resource type="PackedScene" uid="uid://cl1nl63eye3xu" path="res://QuakeLamp/ExampleLamps/NeonLamp.tscn" id="1_ehmid"]
+[ext_resource type="PackedScene" uid="uid://jtnoqmjddcfv" path="res://QuakeLamp/ExampleLamps/Lantern.tscn" id="2_dcott"]
+
+[sub_resource type="BoxMesh" id="1"]
+
+[sub_resource type="StandardMaterial3D" id="2"]
+
+[sub_resource type="Environment" id="Environment_lu6my"]
+background_energy_multiplier = 0.1
+
+[sub_resource type="VoxelGIData" id="VoxelGIData_y65gi"]
+_data = {
+"bounds": AABB(-4, -2, -4, 8, 4, 8),
+"level_counts": PackedInt32Array(1, 0, 0, 0, 0, 0, 0, 0),
+"octree_cells": PackedByteArray("//////////////////////////////////////////8="),
+"octree_data": PackedByteArray("AAAAAAAAAAAAAAAAAAAAAA=="),
+"octree_df_png": PackedByteArray("iVBORw0KGgoAAAANSUhEUgAAIAAAAACACAAAAACGzLjBAAAAAXNSR0IArs4c6QAABU1JREFUeJzt2jENACAAwDDAv2cQwUFYWgUTsLkHAAAAAAAAAPC79ToAAAAAAAAAALhnAAAAAAAAAACAAAMAAAAAAAAAAAQYAAAAAAAAAAAgwAAAAAAAAAAAAAEGAAAAAAAAAAAIMAAAAAAAAAAAQIABAAAAAAAAAAACDAAAAAAAAAAAEGAAAAAAAAAAAIAAAwAAAAAAAAAABBgAAAAAAAAAACDAAAAAAAAAAAAAAQYAAAAAAAAAAAgwAAAAAAAAAABAgAEAAAAAAAAAAAIMAAAAAAAAAAAQYAAAAAAAAAAAgAADAAAAAAAAAAAEGAAAAAAAAAAAIMAAAAAAAAAAAAABBgAAAAAAAAAACDAAAAAAAAAAAECAAQAAAAAAAAAAAgwAAAAAAAAAABBgAAAAAAAAAACAAAMAAAAAAAAAAAQYAAAAAAAAAAAgwAAAAAAAAAAAAAEGAAAAAAAAAAAIMAAAAAAAAAAAQIABAAAAAAAAAAACDAAAAAAAAAAAEGAAAAAAAAAAAIAAAwAAAAAAAAAABBgAAAAAAAAAACDAAAAAAAAAAAAAAQYAAAAAAAAAAAgwAAAAAAAAAABAgAEAAAAAAAAAAAIMAAAAAAAAAAAQYAAAAAAAAAAAgAADAAAAAAAAAAAEGAAAAAAAAAAAIMAAAAAAAAAAAAABBgAAAAAAAAAACDAAAAAAAAAAAECAAQAAAAAAAAAAAgwAAAAAAAAAABBgAAAAAAAAAACAAAMAAAAAAAAAAAQYAAAAAAAAAAAgwAAAAAAAAAAAAAEGAAAAAAAAAAAIMAAAAAAAAAAAQIABAAAAAAAAAAACDAAAAAAAAAAAEGAAAAAAAAAAAIAAAwAAAAAAAAAABBgAAAAAAAAAACDAAAAAAAAAAAAAAQYAAAAAAAAAAAgwAAAAAAAAAABAgAEAAAAAAAAAAAIMAAAAAAAAAAAQYAAAAAAAAAAAgAADAAAAAAAAAAAEGAAAAAAAAAAAIMAAAAAAAAAAAAABBgAAAAAAAAAACDAAAAAAAAAAAECAAQAAAAAAAAAAAgwAAAAAAAAAABBgAAAAAAAAAACAAAMAAAAAAAAAAAQYAAAAAAAAAAAgwAAAAAAAAAAAAAEGAAAAAAAAAAAIMAAAAAAAAAAAQIABAAAAAAAAAAACDAAAAAAAAAAAEGAAAAAAAAAAAIAAAwAAAAAAAAAABBgAAAAAAAAAACDAAAAAAAAAAAAAAQYAAAAAAAAAAAgwAAAAAAAAAABAgAEAAAAAAAAAAAIMAAAAAAAAAAAQYAAAAAAAAAAAgAADAAAAAAAAAAAEGAAAAAAAAAAAIMAAAAAAAAAAAAABBgAAAAAAAAAACDAAAAAAAAAAAECAAQAAAAAAAAAAAgwAAAAAAAAAABBgAAAAAAAAAACAAAMAAAAAAAAAAAQYAAAAAAAAAAAgwAAAAAAAAAAAAAEGAAAAAAAAAAAIMAAAAAAAAAAAQIABAAAAAAAAAAACDAAAAAAAAAAAEGAAAAAAAAAAAIAAAwAAAAAAAAAABBgAAAAAAAAAACDAAAAAAAAAAAAAAQYAAAAAAAAAAAgwAAAAAAAAAABAgAEAAAAAAAAAAAIMAAAAAAAAAAAQYAAAAAAAAAAAgAADAAAAAAAAAAAEGAAAAAAAAAAAIMAAAAAAAAAAAAABBgAAAAAAAAAACDAAAAAAAAAAAECAAQAAAAAAAAAAAgwAAAAAAAAAABBgAAAAAAAAAACAAAMAAAAAAAAAAAQYAAAAAAAAAAAgwAAAAAAAAAAAAAEGAAAAAAAAAAAIMAAAAAAAAAAAQMABJx8B//w5aDkAAAAASUVORK5CYII="),
+"octree_size": Vector3(128, 64, 128),
+"to_cell_xform": Transform3D(16, 0, 0, 0, 16, 0, 0, 0, 16, 64, 32, 64)
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ggbbb"]
+resource_local_to_scene = true
+albedo_color = Color(0.712129, 0.712129, 0.712129, 1)
+emission_enabled = true
+emission = Color(0.71958, 0.999777, 1, 1)
+emission_energy_multiplier = 1.10644
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_aeq1y"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ds6cy"]
+resource_local_to_scene = true
+albedo_color = Color(0.753906, 0.753906, 0.753906, 1)
+albedo_texture = SubResource("PlaceholderTexture2D_aeq1y")
+emission_enabled = true
+emission = Color(1, 0.774414, 0.34375, 1)
+emission_energy_multiplier = 3.89152
+
+[node name="World" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.0175826, -0.0324574, 0.999318, 0.000571002, 0.999473, 0.0324524, -0.999845, 1.63007e-08, 0.0175919, 2.16, 0.595, 0)
+fov = 55.0
+
+[node name="Architecture" type="Node3D" parent="."]
+
+[node name="Floor" type="CSGMesh3D" parent="Architecture"]
+transform = Transform3D(8, 0, 0, 0, 0.1, 0, 0, 0, 8, 0, 0, 0)
+mesh = SubResource("1")
+material = SubResource("2")
+
+[node name="Ceiling" type="CSGMesh3D" parent="Architecture"]
+transform = Transform3D(8, 0, 0, 0, 0.1, 0, 0, 0, 8, 0, 2, 0)
+mesh = SubResource("1")
+material = SubResource("2")
+
+[node name="Wall_01" type="CSGMesh3D" parent="Architecture"]
+transform = Transform3D(0.2, 0, 0, 0, 2, 0, 0, 0, 8, -4, 1, 0)
+mesh = SubResource("1")
+material = SubResource("2")
+
+[node name="Wall_02" type="CSGMesh3D" parent="Architecture"]
+transform = Transform3D(0, 0, 8, 0, 2, 0, -0.2, 0, 2.38419e-07, 0, 1, 4)
+mesh = SubResource("1")
+material = SubResource("2")
+
+[node name="Wall_03" type="CSGMesh3D" parent="Architecture"]
+transform = Transform3D(0, 0, 8, 0, 2, 0, -0.2, 0, 2.38419e-07, 0, 1, -4)
+mesh = SubResource("1")
+material = SubResource("2")
+
+[node name="Lighting" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Lighting"]
+environment = SubResource("Environment_lu6my")
+
+[node name="VoxelGI" type="VoxelGI" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+size = Vector3(8, 4, 8)
+data = SubResource("VoxelGIData_y65gi")
+
+[node name="HelperLights" type="Node3D" parent="Lighting"]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Lighting/HelperLights"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.06849, 0)
+light_color = Color(1, 0.883636, 0.636719, 1)
+light_energy = 0.144
+omni_range = 5.941
+
+[node name="Props" type="Node3D" parent="."]
+
+[node name="Lamps" type="Node3D" parent="Props"]
+
+[node name="NeonLamp1" parent="Props/Lamps" instance=ExtResource("1_ehmid")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3.8512, 0.77978, 2.15901)
+
+[node name="NeonLamp" parent="Props/Lamps" instance=ExtResource("1_ehmid")]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -3.839, 1.78, -2)
+
+[node name="MeshInstance3D" parent="Props/Lamps/NeonLamp" index="0"]
+transform = Transform3D(0.321713, 0, 0, 0, 0.05, 0, 0, 0, 0.1, 0, 0, 0)
+surface_material_override/0 = SubResource("StandardMaterial3D_ggbbb")
+
+[node name="LampComponent" parent="Props/Lamps/NeonLamp" index="1" node_paths=PackedStringArray("LightInstances")]
+LightInstances = [NodePath("../SpotLight3D")]
+
+[node name="FlickerComponent" parent="Props/Lamps/NeonLamp" index="2"]
+AnimationTable = 11
+CustomAnimationTable = "randomcustomstringanimationtable"
+AnimationTimeOffset = 60.0
+Fade = true
+
+[node name="OmniLight3D" parent="Props/Lamps/NeonLamp" index="3"]
+light_energy = 0.0
+light_indirect_energy = 0.0
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Props/Lamps/NeonLamp"]
+transform = Transform3D(1, 0, 0, 0, 0.222552, 0.974921, 0, -0.974921, 0.222552, 0, 0.18548, 0.236021)
+light_color = Color(0.698039, 1, 1, 1)
+light_energy = 0.553221
+light_indirect_energy = 0.553221
+light_bake_mode = 1
+shadow_enabled = true
+
+[node name="Lantern" parent="Props/Lamps" instance=ExtResource("2_dcott")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.358546, 0)
+
+[node name="MeshInstance3D" parent="Props/Lamps/Lantern" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_ds6cy")
+
+[node name="OmniLight3D" parent="Props/Lamps/Lantern" index="3"]
+light_energy = 0.972881
+light_indirect_energy = 0.972881
+light_bake_mode = 1
+
+[editable path="Props/Lamps/NeonLamp"]
+[editable path="Props/Lamps/Lantern"]

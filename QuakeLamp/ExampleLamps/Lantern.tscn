@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://jtnoqmjddcfv"]
+
+[ext_resource type="Script" path="res://QuakeLamp/Components/LampComponent.gd" id="1_icvgw"]
+[ext_resource type="Script" path="res://QuakeLamp/Components/FlickerComponent.gd" id="2_l2cda"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_eow32"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_aeq1y"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_em4s5"]
+resource_local_to_scene = true
+albedo_color = Color(0.753906, 0.753906, 0.753906, 1)
+albedo_texture = SubResource("PlaceholderTexture2D_aeq1y")
+emission_enabled = true
+emission = Color(1, 0.774414, 0.34375, 1)
+emission_energy_multiplier = 4.19509
+
+[node name="Lantern" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_eow32")
+surface_material_override/0 = SubResource("StandardMaterial3D_em4s5")
+
+[node name="LampComponent" type="Node" parent="." node_paths=PackedStringArray("LightInstances", "MeshInstances", "FlickerComponent")]
+script = ExtResource("1_icvgw")
+LampEnergy = 4.0
+LightEnergyMultiplier = 0.25
+Fade = true
+LightInstances = [NodePath("../OmniLight3D")]
+MeshInstances = [NodePath("../MeshInstance3D")]
+FlickerComponent = NodePath("../FlickerComponent")
+
+[node name="FlickerComponent" type="Node" parent="."]
+script = ExtResource("2_l2cda")
+AnimationTable = 5
+Fade = true
+FadeSpeed = 20.0
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(1, 0.676453, 0.332031, 1)
+light_energy = 1.04877
+light_indirect_energy = 1.04877
+omni_range = 2.0

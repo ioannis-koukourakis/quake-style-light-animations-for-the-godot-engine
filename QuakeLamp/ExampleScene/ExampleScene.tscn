@@ -8,7 +8,11 @@
 [sub_resource type="StandardMaterial3D" id="2"]
 
 [sub_resource type="Environment" id="Environment_lu6my"]
+resource_local_to_scene = true
 background_energy_multiplier = 0.1
+ssao_enabled = true
+ssil_enabled = true
+glow_enabled = true
 
 [sub_resource type="VoxelGIData" id="VoxelGIData_y65gi"]
 _data = {
@@ -25,8 +29,8 @@ _data = {
 resource_local_to_scene = true
 albedo_color = Color(0.712129, 0.712129, 0.712129, 1)
 emission_enabled = true
-emission = Color(0.71958, 0.999777, 1, 1)
-emission_energy_multiplier = 1.10644
+emission = Color(1, 0.403922, 0.933333, 1)
+emission_energy_multiplier = 1.061
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_aeq1y"]
 
@@ -36,12 +40,12 @@ albedo_color = Color(0.753906, 0.753906, 0.753906, 1)
 albedo_texture = SubResource("PlaceholderTexture2D_aeq1y")
 emission_enabled = true
 emission = Color(1, 0.774414, 0.34375, 1)
-emission_energy_multiplier = 3.89152
+emission_energy_multiplier = 5.76392
 
 [node name="World" type="Node3D"]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.0175826, -0.0324574, 0.999318, 0.000571002, 0.999473, 0.0324524, -0.999845, 1.63007e-08, 0.0175919, 2.16, 0.595, 0)
+transform = Transform3D(0.0175826, -0.0324574, 0.999318, 0.000571002, 0.999473, 0.0324524, -0.999845, 1.63007e-08, 0.0175919, 1.5978, 0.595, 0)
 fov = 55.0
 
 [node name="Architecture" type="Node3D" parent="."]
@@ -81,13 +85,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 size = Vector3(8, 4, 8)
 data = SubResource("VoxelGIData_y65gi")
 
-[node name="HelperLights" type="Node3D" parent="Lighting"]
-
-[node name="OmniLight3D" type="OmniLight3D" parent="Lighting/HelperLights"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.06849, 0)
-light_color = Color(1, 0.883636, 0.636719, 1)
-light_energy = 0.144
-omni_range = 5.941
+[node name="ReflectionProbe" type="ReflectionProbe" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+size = Vector3(8, 2, 8)
 
 [node name="Props" type="Node3D" parent="."]
 
@@ -96,44 +96,46 @@ omni_range = 5.941
 [node name="NeonLamp1" parent="Props/Lamps" instance=ExtResource("1_ehmid")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3.8512, 0.77978, 2.15901)
 
-[node name="NeonLamp" parent="Props/Lamps" instance=ExtResource("1_ehmid")]
+[node name="NeonLamp2" parent="Props/Lamps" instance=ExtResource("1_ehmid")]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -3.839, 1.78, -2)
 
-[node name="MeshInstance3D" parent="Props/Lamps/NeonLamp" index="0"]
+[node name="MeshInstance3D" parent="Props/Lamps/NeonLamp2" index="0"]
 transform = Transform3D(0.321713, 0, 0, 0, 0.05, 0, 0, 0, 0.1, 0, 0, 0)
 surface_material_override/0 = SubResource("StandardMaterial3D_ggbbb")
 
-[node name="LampComponent" parent="Props/Lamps/NeonLamp" index="1" node_paths=PackedStringArray("LightInstances")]
+[node name="LampComponent" parent="Props/Lamps/NeonLamp2" index="1" node_paths=PackedStringArray("LightInstances")]
+LampEnergy = 2.0
+LightEnergyMultiplier = 0.25
 LightInstances = [NodePath("../SpotLight3D")]
 
-[node name="FlickerComponent" parent="Props/Lamps/NeonLamp" index="2"]
+[node name="FlickerComponent" parent="Props/Lamps/NeonLamp2" index="2"]
 AnimationTable = 11
 CustomAnimationTable = "randomcustomstringanimationtable"
 AnimationTimeOffset = 60.0
 Fade = true
 
-[node name="OmniLight3D" parent="Props/Lamps/NeonLamp" index="3"]
+[node name="OmniLight3D" parent="Props/Lamps/NeonLamp2" index="3"]
 light_energy = 0.0
 light_indirect_energy = 0.0
 
-[node name="SpotLight3D" type="SpotLight3D" parent="Props/Lamps/NeonLamp"]
+[node name="SpotLight3D" type="SpotLight3D" parent="Props/Lamps/NeonLamp2"]
 transform = Transform3D(1, 0, 0, 0, 0.222552, 0.974921, 0, -0.974921, 0.222552, 0, 0.18548, 0.236021)
-light_color = Color(0.698039, 1, 1, 1)
-light_energy = 0.553221
-light_indirect_energy = 0.553221
+light_color = Color(1, 0.402344, 0.934631, 1)
+light_energy = 0.26525
+light_indirect_energy = 0.26525
 light_bake_mode = 1
 shadow_enabled = true
 
 [node name="Lantern" parent="Props/Lamps" instance=ExtResource("2_dcott")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.358546, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.490385, 0)
 
 [node name="MeshInstance3D" parent="Props/Lamps/Lantern" index="0"]
 surface_material_override/0 = SubResource("StandardMaterial3D_ds6cy")
 
 [node name="OmniLight3D" parent="Props/Lamps/Lantern" index="3"]
-light_energy = 0.972881
-light_indirect_energy = 0.972881
+light_energy = 1.44098
+light_indirect_energy = 1.44098
 light_bake_mode = 1
 
-[editable path="Props/Lamps/NeonLamp"]
+[editable path="Props/Lamps/NeonLamp2"]
 [editable path="Props/Lamps/Lantern"]

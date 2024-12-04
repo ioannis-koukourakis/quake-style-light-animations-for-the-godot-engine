@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=4 uid="uid://cp2yv6yk18kui"]
 
-[ext_resource type="PackedScene" uid="uid://cl1nl63eye3xu" path="res://ExampleLamps/NeonLamp.tscn" id="1_dqd8f"]
-[ext_resource type="PackedScene" uid="uid://jtnoqmjddcfv" path="res://ExampleLamps/Lantern.tscn" id="2_yvnva"]
+[ext_resource type="PackedScene" uid="uid://cl1nl63eye3xu" path="res://ExampleScene/ExampleLamps/NeonLamp.tscn" id="1_dqd8f"]
+[ext_resource type="PackedScene" uid="uid://jtnoqmjddcfv" path="res://ExampleScene/ExampleLamps/Lantern.tscn" id="2_yvnva"]
 
 [sub_resource type="BoxMesh" id="1"]
 
@@ -30,7 +30,7 @@ resource_local_to_scene = true
 albedo_color = Color(0.712129, 0.712129, 0.712129, 1)
 emission_enabled = true
 emission = Color(1, 0.403922, 0.933333, 1)
-emission_energy_multiplier = 2.8843
+emission_energy_multiplier = 2.98014
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_aeq1y"]
 
@@ -40,7 +40,7 @@ albedo_color = Color(0.753906, 0.753906, 0.753906, 1)
 albedo_texture = SubResource("PlaceholderTexture2D_aeq1y")
 emission_enabled = true
 emission = Color(1, 0.774414, 0.34375, 1)
-emission_energy_multiplier = 5.76012
+emission_energy_multiplier = 5.76092
 
 [node name="World" type="Node3D"]
 
@@ -121,8 +121,8 @@ light_indirect_energy = 0.0
 [node name="SpotLight3D" type="SpotLight3D" parent="Props/Lamps/NeonLamp2"]
 transform = Transform3D(1, 0, 0, 0, 0.222552, 0.974921, 0, -0.974921, 0.222552, 0, 0.18548, 0.236021)
 light_color = Color(1, 0.402344, 0.934631, 1)
-light_energy = 0.721076
-light_indirect_energy = 0.721076
+light_energy = 0.745036
+light_indirect_energy = 0.745036
 light_bake_mode = 1
 shadow_enabled = true
 
@@ -133,8 +133,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.490385, 0)
 surface_material_override/0 = SubResource("StandardMaterial3D_ds6cy")
 
 [node name="OmniLight3D" parent="Props/Lamps/Lantern" index="3"]
-light_energy = 1.44003
-light_indirect_energy = 1.44003
+light_energy = 1.44023
+light_indirect_energy = 1.44023
 light_bake_mode = 1
 
 [editable path="Props/Lamps/NeonLamp2"]

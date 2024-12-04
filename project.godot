@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Quake Lights"
-run/main_scene="res://QuakeLamp/ExampleScene/ExampleScene.tscn"
+run/main_scene="res://ExampleScene/ExampleScene.tscn"
 config/features=PackedStringArray("4.3")
 
 [display]

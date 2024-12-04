@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cl1nl63eye3xu"]
 
-[ext_resource type="Script" path="res://QuakeLamp/Components/LampComponent.gd" id="2_54wjj"]
-[ext_resource type="Script" path="res://QuakeLamp/Components/FlickerComponent.gd" id="3_etaui"]
+[ext_resource type="Script" path="res://addons/QuakeLamp/LampComponent.gd" id="2_54wjj"]
+[ext_resource type="Script" path="res://addons/QuakeLamp/FlickerComponent.gd" id="3_etaui"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_neq34"]
 

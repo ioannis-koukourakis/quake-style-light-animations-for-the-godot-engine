@@ -1,7 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://jtnoqmjddcfv"]
+[gd_scene load_steps=11 format=3 uid="uid://jtnoqmjddcfv"]
 
 [ext_resource type="Script" path="res://addons/QuakeLamp/LampComponent.gd" id="1_icvgw"]
 [ext_resource type="Script" path="res://addons/QuakeLamp/FlickerComponent.gd" id="2_l2cda"]
+[ext_resource type="AudioStream" uid="uid://b6kkmgdfpx1l8" path="res://ExampleScene/ExampleLamps/Sound/LampLoop.wav" id="3_qbxg1"]
+[ext_resource type="Material" uid="uid://c2nmpkr75lpt2" path="res://ExampleScene/ExampleLamps/GenericEmissiveMaterial.tres" id="4_wrjn7"]
+[ext_resource type="AudioStream" uid="uid://by1vghcp5g8wv" path="res://ExampleScene/ExampleLamps/Sound/FluorescentLightOff.wav" id="5_ceyi6"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_8jh8o"]
 
@@ -13,7 +16,21 @@ albedo_color = Color(0.753906, 0.753906, 0.753906, 1)
 albedo_texture = SubResource("PlaceholderTexture2D_aeq1y")
 emission_enabled = true
 emission = Color(1, 0.774414, 0.34375, 1)
-emission_energy_multiplier = 6.0
+emission_energy_multiplier = 10.1493
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_upp4i"]
+resource_local_to_scene = true
+emission_shape = 1
+emission_sphere_radius = 0.76
+radial_velocity_min = 3.49998
+radial_velocity_max = 4.64998
+gravity = Vector3(0, 0, 0)
+scale_over_velocity_min = 1000.0
+scale_over_velocity_max = 1000.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_tk66e"]
+material = ExtResource("4_wrjn7")
+size = Vector3(0.01, 0.01, 0.01)
 
 [node name="Lantern" type="Node3D"]
 
@@ -23,23 +40,48 @@ cast_shadow = 0
 mesh = SubResource("SphereMesh_8jh8o")
 surface_material_override/0 = SubResource("StandardMaterial3D_em4s5")
 
-[node name="LampComponent" type="Node" parent="." node_paths=PackedStringArray("LightInstances", "MeshInstances", "FlickerComponent")]
+[node name="LampComponent" type="Node" parent="." node_paths=PackedStringArray("LightInstances", "MeshInstances", "LampOnSound", "LampOffSound", "LampLoopSound", "ParticleEffects", "FlickerComponent")]
 script = ExtResource("1_icvgw")
 LampEnergy = 6.0
 LightEnergyMultiplier = 0.25
 Fade = true
+FadeSpeed = 10.0
 LightInstances = [NodePath("../OmniLight3D")]
 MeshInstances = [NodePath("../MeshInstance3D")]
+LampOnSound = NodePath("../ToggleSound")
+LampOffSound = NodePath("../ToggleSound")
+LampLoopSound = NodePath("../LoopingSound")
+ParticleEffects = [NodePath("../GPUParticles3D")]
 FlickerComponent = NodePath("../FlickerComponent")
 
 [node name="FlickerComponent" type="Node" parent="."]
 script = ExtResource("2_l2cda")
-AnimationTable = 0
+Preset = 4
+CustomAnimationTable = "jklmnopqrstuvwxyzyxwvutsrqponmlkj"
 Fade = true
+FadeSpeed = 20.0
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 light_color = Color(1, 0.676453, 0.332031, 1)
-light_energy = 1.5
-light_indirect_energy = 1.5
+light_energy = 2.53732
+light_indirect_energy = 2.53732
 omni_range = 3.0
 omni_attenuation = 0.4
+
+[node name="LoopingSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_qbxg1")
+volume_db = -21.876
+autoplay = true
+max_distance = 10.0
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+material_override = ExtResource("4_wrjn7")
+cast_shadow = 0
+amount = 64
+lifetime = 0.05
+speed_scale = 0.05
+process_material = SubResource("ParticleProcessMaterial_upp4i")
+draw_pass_1 = SubResource("BoxMesh_tk66e")
+
+[node name="ToggleSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("5_ceyi6")

@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cl1nl63eye3xu"]
+[gd_scene load_steps=7 format=3 uid="uid://cl1nl63eye3xu"]
 
 [ext_resource type="Script" path="res://addons/QuakeLamp/LampComponent.gd" id="2_54wjj"]
+[ext_resource type="AudioStream" uid="uid://dkh2wskbbv5l1" path="res://ExampleScene/ExampleLamps/Sound/FluorescentLightOn.wav" id="3_clgqf"]
 [ext_resource type="Script" path="res://addons/QuakeLamp/FlickerComponent.gd" id="3_etaui"]
+[ext_resource type="AudioStream" uid="uid://by1vghcp5g8wv" path="res://ExampleScene/ExampleLamps/Sound/FluorescentLightOff.wav" id="4_vbsgd"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_neq34"]
 
@@ -10,6 +12,7 @@ resource_local_to_scene = true
 albedo_color = Color(0.712129, 0.712129, 0.712129, 1)
 emission_enabled = true
 emission = Color(0.71958, 0.999777, 1, 1)
+emission_energy_multiplier = 0.0
 
 [node name="NeonLamp" type="Node3D"]
 
@@ -19,19 +22,35 @@ cast_shadow = 0
 mesh = SubResource("BoxMesh_neq34")
 surface_material_override/0 = SubResource("StandardMaterial3D_js3qi")
 
-[node name="LampComponent" type="Node" parent="." node_paths=PackedStringArray("LightInstances", "MeshInstances", "FlickerComponent")]
+[node name="LampComponent" type="Node" parent="." node_paths=PackedStringArray("LightInstances", "MeshInstances", "LampOnSound", "LampOffSound", "FlickerComponent")]
 script = ExtResource("2_54wjj")
 LightEnergyMultiplier = 0.5
 LightInstances = [NodePath("../OmniLight3D")]
 MeshInstances = [NodePath("../MeshInstance3D")]
+LampOnSound = NodePath("../FlickerSoundOn")
+LampOffSound = NodePath("../FlickerSoundOff")
 FlickerComponent = NodePath("../FlickerComponent")
 
-[node name="FlickerComponent" type="Node" parent="."]
+[node name="FlickerComponent" type="Node" parent="." node_paths=PackedStringArray("SoundA")]
 script = ExtResource("3_etaui")
+CustomAnimationTable = "mmamammmmammamamaaamammma"
+PlaySoundsInTheEditor = false
+SoundA = NodePath("../FlickerSoundOn")
+SoundATriggerCharacter = "m"
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.458978)
 light_color = Color(0.698039, 1, 1, 1)
-light_energy = 0.5
-light_indirect_energy = 0.5
+light_energy = 0.0
+light_indirect_energy = 0.0
 omni_range = 2.0
+
+[node name="FlickerSoundOn" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_clgqf")
+max_distance = 7.0
+playback_type = 1
+
+[node name="FlickerSoundOff" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_vbsgd")
+max_distance = 7.0
+playback_type = 1

@@ -1,5 +1,6 @@
-[gd_scene load_steps=10 format=4 uid="uid://cp2yv6yk18kui"]
+[gd_scene load_steps=14 format=4 uid="uid://cp2yv6yk18kui"]
 
+[ext_resource type="Script" path="res://ExampleScene/ExampleScene.gd" id="1_cnhdw"]
 [ext_resource type="PackedScene" uid="uid://cl1nl63eye3xu" path="res://ExampleScene/ExampleLamps/NeonLamp.tscn" id="1_dqd8f"]
 [ext_resource type="PackedScene" uid="uid://jtnoqmjddcfv" path="res://ExampleScene/ExampleLamps/Lantern.tscn" id="2_yvnva"]
 
@@ -30,19 +31,40 @@ resource_local_to_scene = true
 albedo_color = Color(0.712129, 0.712129, 0.712129, 1)
 emission_enabled = true
 emission = Color(1, 0.403922, 0.933333, 1)
-emission_energy_multiplier = 2.98014
+emission_energy_multiplier = 0.976461
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_aeq1y"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ds6cy"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8idv6"]
 resource_local_to_scene = true
 albedo_color = Color(0.753906, 0.753906, 0.753906, 1)
 albedo_texture = SubResource("PlaceholderTexture2D_aeq1y")
 emission_enabled = true
 emission = Color(1, 0.774414, 0.34375, 1)
-emission_energy_multiplier = 5.76092
+emission_energy_multiplier = 8.7692
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_a2yd2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fxh0h"]
+resource_local_to_scene = true
+albedo_color = Color(0.446777, 0.446777, 0.446777, 1)
+albedo_texture = SubResource("PlaceholderTexture2D_a2yd2")
+emission_enabled = true
+emission = Color(1, 0.78479, 0.328125, 1)
+emission_energy_multiplier = 0.96
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_x5yx4"]
+resource_local_to_scene = true
+emission_shape = 1
+emission_sphere_radius = 0.76
+radial_velocity_min = 3.49998
+radial_velocity_max = 4.64998
+gravity = Vector3(0, 0, 0)
+scale_over_velocity_min = 1000.0
+scale_over_velocity_max = 1000.0
 
 [node name="World" type="Node3D"]
+script = ExtResource("1_cnhdw")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.0175826, -0.0324574, 0.999318, 0.000571002, 0.999473, 0.0324524, -0.999845, 1.63007e-08, 0.0175919, 1.5978, 0.595, 0)
@@ -106,23 +128,27 @@ surface_material_override/0 = SubResource("StandardMaterial3D_ggbbb")
 [node name="LampComponent" parent="Props/Lamps/NeonLamp2" index="1" node_paths=PackedStringArray("LightInstances")]
 LampEnergy = 2.0
 LightEnergyMultiplier = 0.25
-LightInstances = [NodePath("../SpotLight3D")]
+Fade = true
+LightInstances = [NodePath("../OmniLight3D"), NodePath("../SpotLight3D")]
 
-[node name="FlickerComponent" parent="Props/Lamps/NeonLamp2" index="2"]
-AnimationTable = 11
-CustomAnimationTable = "randomcustomstringanimationtable"
+[node name="FlickerComponent" parent="Props/Lamps/NeonLamp2" index="2" node_paths=PackedStringArray("SoundA")]
+Preset = 11
+CustomAnimationTable = "mynameisioannis"
 AnimationTimeOffset = 60.0
 Fade = true
+SoundA = NodePath("../FlickerSoundOff")
+SoundATriggerCharacter = "a"
 
 [node name="OmniLight3D" parent="Props/Lamps/NeonLamp2" index="3"]
-light_energy = 0.0
-light_indirect_energy = 0.0
+visible = false
+light_energy = 0.244115
+light_indirect_energy = 0.244115
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Props/Lamps/NeonLamp2"]
 transform = Transform3D(1, 0, 0, 0, 0.222552, 0.974921, 0, -0.974921, 0.222552, 0, 0.18548, 0.236021)
 light_color = Color(1, 0.402344, 0.934631, 1)
-light_energy = 0.745036
-light_indirect_energy = 0.745036
+light_energy = 0.244115
+light_indirect_energy = 0.244115
 light_bake_mode = 1
 shadow_enabled = true
 
@@ -130,12 +156,15 @@ shadow_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.490385, 0)
 
 [node name="MeshInstance3D" parent="Props/Lamps/Lantern" index="0"]
-surface_material_override/0 = SubResource("StandardMaterial3D_ds6cy")
+surface_material_override/0 = SubResource("StandardMaterial3D_8idv6")
 
 [node name="OmniLight3D" parent="Props/Lamps/Lantern" index="3"]
-light_energy = 1.44023
-light_indirect_energy = 1.44023
-light_bake_mode = 1
+light_energy = 2.1923
+light_indirect_energy = 2.1923
+
+[node name="GPUParticles3D" parent="Props/Lamps/Lantern" index="5"]
+material_override = SubResource("StandardMaterial3D_fxh0h")
+process_material = SubResource("ParticleProcessMaterial_x5yx4")
 
 [editable path="Props/Lamps/NeonLamp2"]
 [editable path="Props/Lamps/Lantern"]

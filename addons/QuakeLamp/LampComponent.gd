@@ -15,9 +15,17 @@ class_name cLampComponent extends cComponentBase
 ## The time it takes to fade if Fade is true.
 @export var FadeSpeed: float = 30.0;
 ## A list of light node instances to sync with the lamp state. 
-@export var LightInstances: Array[Light3D];
+@export var LightInstances: Array[Light3D] = [];
 ## A list of mesh node instances who's materials emission sync with the lamp state. 
-@export var MeshInstances: Array[MeshInstance3D];
+@export var MeshInstances: Array[MeshInstance3D] = [];
+## Audio effect played when the lamp is turned on.
+@export var LampOnSound : AudioStreamPlayer3D = null;
+## Audio effect played when the lamp is turned off.
+@export var LampOffSound : AudioStreamPlayer3D = null;
+## Audio effect playing in a loop for as long as the lamp is Lit.
+@export var LampLoopSound : AudioStreamPlayer3D = null;
+## Particle effects to draw while the lamp is Lit.
+@export var ParticleEffects : Array[GPUParticles3D] = [];
 ## Optional Flicker component.
 @export var FlickerComponent: cFlickerComponent : get = GetFlickerComponent;
 
@@ -131,6 +139,18 @@ func UpdateLampProperties()->void:
 			var pMat: BaseMaterial3D = pCurrMeshInst.get_surface_override_material(j);
 			if (is_instance_valid(pMat)==false): continue;
 			pMat.set_emission_energy_multiplier(GetCurrentLightEnergy());
+	
+	################################
+	# Particle Fx Properties
+	for i in range(ParticleEffects.size()):
+		var pParticleFx: GPUParticles3D = ParticleEffects[i];
+		if (is_instance_valid(pParticleFx)==false): continue;
+		if (Lit):
+			pParticleFx.emitting = true;
+		elif (Fade):
+			pParticleFx.emitting = mfCurrentLightEnergy > 0.1; # Gradually stop particles.
+		else:
+			pParticleFx.emitting = false;
 
 # ------------------------------------------------
 # INTERFACE
@@ -149,14 +169,26 @@ func SetActive(abX: bool):
 # ------------------------------------------------
 
 func SetLit(abX:bool)->void:
+	#################################
+	# Update the lamp's properties
 	Lit = abX;
-	
 	mfDesiredLightEnergy = GetDesiredLightEnergy();
 	
+	#################################
+	# Skip fading if disabled
 	if (Fade==false):
 		mfCurrentLightEnergy = mfDesiredLightEnergy;
 	
 	UpdateLampProperties();
+	
+	########################
+	# Play sound
+	if (abX):
+		if (is_instance_valid(LampOnSound)): LampOnSound.play();
+		if (is_instance_valid(LampLoopSound)): LampLoopSound.play();
+	else:
+		if (is_instance_valid(LampOffSound)): LampOffSound.play();
+		if (is_instance_valid(LampLoopSound)): LampLoopSound.stop();
 
 #-------------------------------------------------------
 

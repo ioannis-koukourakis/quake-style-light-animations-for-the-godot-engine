@@ -13,7 +13,8 @@ func _ready():
 	mInfoLabel.bbcode_enabled = true;
 	mInfoLabel.anchor_right = 1.0;
 	mInfoLabel.anchor_bottom = 0.5;
-	mInfoLabel.text = "[color=green]Controls[/color]Toggle lamp On/Off: [color=light_green]Press Space Bar[/color]";
+	mInfoLabel.text = "[color=green]Controls[/color]
+		Toggle lamp On/Off: Press [color=light_green]Space Bar[/color]";
 	mInfoLabel.position = Vector2(10, 10);
 	mInfoLabel.add_theme_color_override("font_color", Color(1, 1, 1));
 	add_child(mInfoLabel);

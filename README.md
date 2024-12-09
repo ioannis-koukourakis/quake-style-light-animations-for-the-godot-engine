@@ -10,6 +10,16 @@ Video Preview: https://youtu.be/3TF3_8YQb2U
 
 ---
 
+## Version 2.1.1 changelog
+- Added support for toggle and flicker sounds.
+- Added support for particle effects that sync with flicker and lamp state. 
+- Introducing a new handler to control and adjust the brightness of the linked mesh instances material emission.
+- General optimizations.
+- Fixed the .gitignore file to properly include .import data, preventing issues with looping sound in the example scene.
+- Resolved missing audio reference warnings.
+
+---
+
 ## Version 2.0 Highlights  
 - **Godot 4 Compatible**: Redesigned for Godot 4 (no longer supports Godot 3).  
 - **Component-Based Design**: Includes two modular components:  

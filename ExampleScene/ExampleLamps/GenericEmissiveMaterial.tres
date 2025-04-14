@@ -8,4 +8,4 @@ albedo_color = Color(0.446777, 0.446777, 0.446777, 1)
 albedo_texture = SubResource("PlaceholderTexture2D_aeq1y")
 emission_enabled = true
 emission = Color(1, 0.78479, 0.328125, 1)
-emission_energy_multiplier = 0.96
+emission_energy_multiplier = 7.92606

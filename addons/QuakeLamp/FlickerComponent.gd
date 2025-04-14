@@ -22,6 +22,7 @@ enum AnimationTablePreset{
 # SETTINGS
 #-------------------------------------------------------
 
+@export_category("General")
 ## If true the flicker animations play in the edit mode as well as when the game is running. 
 @export var AnimateInTheEditor: bool = true;
 ## Animation speed
@@ -36,6 +37,8 @@ enum AnimationTablePreset{
 @export var Fade: bool = false;
 ## The fade speed if Fade is true.
 @export var FadeSpeed: float = 30.0 : set = SetFadeSpeed, get = GetFadeSpeed;
+
+@export_category("Audio Effects")
 ## ## If true the sound plays in the edit mode as well as when the game is running.
 @export var PlaySoundsInTheEditor: bool = true;
 ## The sound to play when 'Sound A Trigger Character' is matched.

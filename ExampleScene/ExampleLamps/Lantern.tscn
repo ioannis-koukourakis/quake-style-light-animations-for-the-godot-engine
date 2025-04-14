@@ -16,7 +16,7 @@ albedo_color = Color(0.753906, 0.753906, 0.753906, 1)
 albedo_texture = SubResource("PlaceholderTexture2D_aeq1y")
 emission_enabled = true
 emission = Color(1, 0.774414, 0.34375, 1)
-emission_energy_multiplier = 10.1493
+emission_energy_multiplier = 6.0
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_upp4i"]
 resource_local_to_scene = true
@@ -63,8 +63,8 @@ FadeSpeed = 20.0
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 light_color = Color(1, 0.676453, 0.332031, 1)
-light_energy = 2.53732
-light_indirect_energy = 2.53732
+light_energy = 1.5
+light_indirect_energy = 1.5
 omni_range = 3.0
 omni_attenuation = 0.4
 

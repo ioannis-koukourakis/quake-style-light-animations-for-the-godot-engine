@@ -2,7 +2,7 @@
 
 A modular, component-based system for creating animated lights in the Godot engine, inspired by the dynamic light animations of classic Quake and Half-Life games.  
 
-Please note: This addon is provided as-is. While there won't be official support, I will be updating it as I continue work on my own project.
+### Please note: This repository is no longer actively maintained or supported. Feel free to fork it and make your own changes or improvements!
 
 ![Animation Preview](https://github.com/ioannis-koukourakis/quake-style-light-animations-for-the-godot-engine/blob/main/godot_quake_lights.gif)  
 
